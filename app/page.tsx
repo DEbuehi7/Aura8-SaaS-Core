@@ -5,6 +5,8 @@ import { useState } from "react";
 const ENDPOINTS = [
   { name: "ZoneCheck API", path: "/api/zone-check", defaultPayload: '{\n  "address": "725 S Spring St",\n  "zoningCode": "C2-4D",\n  "lotSizeSqFt": 10000\n}' },
   { name: "Extract Specs API", path: "/api/extract-specs", defaultPayload: '{\n  "rawText": "Section 03 30 00 Cast-in-Place Concrete. Provide 4000 PSI concrete for spread footings, total 120 CY."\n}' },
+  { name: "SpecExtract AI", path: "/api/spec-extract", defaultPayload: '{\n  "blueprintText": "Foundation details require 4000 PSI concrete slab and heavy wood framing studs."\n}' },
+  { name: "PropLease Audit", path: "/api/prop-lease-audit", defaultPayload: '{\n  "leaseText": "Standard NNN lease agreement with CAM charges and landlord demolition clause.",\n  "baseRent": 6500,\n  "camCharges": 1200\n}' },
   { name: "Audit Lease API", path: "/api/audit-lease", defaultPayload: '{\n  "tenantName": "John Doe",\n  "monthlyIncome": 2500,\n  "contractRent": 1800,\n  "utilityAllowance": 75\n}' },
   { name: "Parse Sub Bid API", path: "/api/parse-sub-bid", defaultPayload: '{\n  "bidText": "Proposal for framing and drywall. Total cost $45,000. CSLB #987654. Includes workers comp.",\n  "trade": "Drywall & Framing"\n}' },
   { name: "Permit Flow API", path: "/api/permit-flow", defaultPayload: '{\n  "projectType": "Triplex",\n  "valuation": 450000,\n  "sqFt": 3200\n}' }
@@ -37,9 +39,9 @@ export default function Dashboard() {
     <main style={{ padding: "2rem", fontFamily: "system-ui, sans-serif", background: "#0f172a", color: "#e2e8f0", minHeight: "100vh" }}>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem", color: "#fff" }}>Aura8 Command Center</h1>
-        <p style={{ color: "#94a3b8", marginBottom: "2rem" }}>Live API Testing Dashboard &bull; Fly.io Edge Network</p>
+        <p style={{ color: "#94a3b8", marginBottom: "2rem" }}>Live API Testing Dashboard &bull; 7 Active Endpoints</p>
         
-        <div style={{ display: "flex", gap: "1rem", marginBottom: "2rem", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: "0.75rem", marginBottom: "2rem", flexWrap: "wrap" }}>
           {ENDPOINTS.map((ep) => (
             <button
               key={ep.path}
