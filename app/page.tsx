@@ -3,16 +3,21 @@
 import { useState } from "react";
 
 const ENDPOINTS = [
+  { name: "InvoiceDiff AI", path: "/api/invoice-diff", defaultPayload: '{\n  "estimateTotal": 50000,\n  "actualInvoiceTotal": 58000,\n  "lineItems": ["Extra framing labor"]\n}' },
+  { name: "DesignBrand Kit", path: "/api/design-brand-kit", defaultPayload: '{\n  "brandName": "Eon Triplex Labs",\n  "primaryColor": "#2563eb",\n  "aesthetic": "Modern Brutalist"\n}' },
+  { name: "RFI Automated", path: "/api/rfi-automate", defaultPayload: '{\n  "fieldNotes": "Missing conduit detail on grid line C4.",\n  "contractor": "Apex Electric"\n}' },
+  { name: "ZoneSetback Calc", path: "/api/zone-setback", defaultPayload: '{\n  "zoningCode": "R3-1",\n  "lotWidthFt": 60,\n  "lotDepthFt": 120\n}' },
+  { name: "CAM Audit", path: "/api/cam-audit", defaultPayload: '{\n  "baseYearCam": 10000,\n  "currentCamBilled": 13200,\n  "capPercentage": 5\n}' },
   { name: "Compliance Vault", path: "/api/compliance-vault", defaultPayload: '{\n  "vendorName": "Apex Roofing LLC",\n  "policyType": "General Liability",\n  "expirationDate": "2026-08-15",\n  "coverageAmount": "$2,000,000"\n}' },
   { name: "Churn Recover", path: "/api/churn-recover", defaultPayload: '{\n  "customerName": "Sarah Jenkins",\n  "customerEmail": "sarah@example.com",\n  "failedAmount": 149,\n  "daysPastDue": 5\n}' },
-  { name: "Dwell8 Underwrite", path: "/api/dwell8-underwrite", defaultPayload: '{\n  "purchasePrice": 450000,\n  "renoCost": 75000,\n  "afterRepairValue": 650000,\n  "monthlyRent": 4200,\n  "propertyTaxesMonthly": 450,\n  "insuranceMonthly": 150,\n  "propertyManagementMonthly": 210\n}' },
+  { name: "Dwell8 Underwrite", path: "/api/dwell8-underwrite", defaultPayload: '{\n  "purchasePrice": 450000,\n  "renoCost": 75000,\n  "afterRepairValue": 650000,\n  "monthlyRent": 4200\n}' },
   { name: "ZoneCheck API", path: "/api/zone-check", defaultPayload: '{\n  "address": "725 S Spring St",\n  "zoningCode": "C2-4D",\n  "lotSizeSqFt": 10000\n}' },
-  { name: "SpecExtract AI", path: "/api/spec-extract", defaultPayload: '{\n  "blueprintText": "Foundation details require 4000 PSI concrete slab and heavy wood framing studs."\n}' },
-  { name: "PropLease Audit", path: "/api/prop-lease-audit", defaultPayload: '{\n  "leaseText": "Standard NNN lease agreement with CAM charges and landlord demolition clause.",\n  "baseRent": 6500,\n  "camCharges": 1200\n}' },
-  { name: "Audit Lease API", path: "/api/audit-lease", defaultPayload: '{\n  "tenantName": "John Doe",\n  "monthlyIncome": 2500,\n  "contractRent": 1800,\n  "utilityAllowance": 75\n}' },
-  { name: "Parse Sub Bid API", path: "/api/parse-sub-bid", defaultPayload: '{\n  "bidText": "Proposal for framing and drywall. Total cost $45,000. CSLB #987654. Includes workers comp.",\n  "trade": "Drywall & Framing"\n}' },
+  { name: "SpecExtract AI", path: "/api/spec-extract", defaultPayload: '{\n  "blueprintText": "Foundation details require 4000 PSI concrete slab."\n}' },
+  { name: "PropLease Audit", path: "/api/prop-lease-audit", defaultPayload: '{\n  "leaseText": "Standard NNN lease agreement with CAM charges.",\n  "baseRent": 6500,\n  "camCharges": 1200\n}' },
+  { name: "Audit Lease API", path: "/api/audit-lease", defaultPayload: '{\n  "tenantName": "John Doe",\n  "monthlyIncome": 2500,\n  "contractRent": 1800\n}' },
+  { name: "Parse Sub Bid API", path: "/api/parse-sub-bid", defaultPayload: '{\n  "bidText": "Proposal for framing and drywall. Total cost $45,000.",\n  "trade": "Drywall & Framing"\n}' },
   { name: "Permit Flow API", path: "/api/permit-flow", defaultPayload: '{\n  "projectType": "Triplex",\n  "valuation": 450000,\n  "sqFt": 3200\n}' },
-  { name: "Extract Specs API", path: "/api/extract-specs", defaultPayload: '{\n  "rawText": "Section 03 30 00 Cast-in-Place Concrete. Provide 4000 PSI concrete for spread footings, total 120 CY."\n}' }
+  { name: "Extract Specs API", path: "/api/extract-specs", defaultPayload: '{\n  "rawText": "Section 03 30 00 Cast-in-Place Concrete."\n}' }
 ];
 
 export default function Dashboard() {
@@ -40,17 +45,17 @@ export default function Dashboard() {
 
   return (
     <main style={{ padding: "2rem", fontFamily: "system-ui, sans-serif", background: "#0f172a", color: "#e2e8f0", minHeight: "100vh" }}>
-      <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem", color: "#fff" }}>Aura8 & Dwell8 Command Center</h1>
-        <p style={{ color: "#94a3b8", marginBottom: "2rem" }}>Live API Testing Dashboard &bull; 10 Active Micro-SaaS Endpoints</p>
+        <p style={{ color: "#94a3b8", marginBottom: "2rem" }}>Live API Testing Dashboard &bull; 15 Active Micro-SaaS Endpoints</p>
         
-        <div style={{ display: "flex", gap: "0.75rem", marginBottom: "2rem", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: "0.5rem", marginBottom: "2rem", flexWrap: "wrap" }}>
           {ENDPOINTS.map((ep) => (
             <button
               key={ep.path}
               onClick={() => { setActiveTab(ep); setPayload(ep.defaultPayload); setResponse(null); }}
               style={{
-                padding: "0.5rem 1rem", borderRadius: "6px", cursor: "pointer", fontWeight: "bold",
+                padding: "0.5rem 0.75rem", borderRadius: "6px", cursor: "pointer", fontWeight: "bold", fontSize: "13px",
                 background: activeTab.path === ep.path ? "#3b82f6" : "#1e293b",
                 color: activeTab.path === ep.path ? "#fff" : "#94a3b8",
                 border: "1px solid #334155"
