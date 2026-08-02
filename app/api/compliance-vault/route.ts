@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
+import { supabase } from '@/lib/supabase';
 
 export async function POST(req: Request) {
   try {
-    const { vendorName, policyType, expirationDate, coverageAmount } = await req.json();
+    const body = await req.json();
+    const { vendorName, policyType, expirationDate, coverageAmount } = body;
     
     if (!expirationDate) {
       return NextResponse.json({ success: false, error: 'expirationDate is required (YYYY-MM-DD).' }, { status: 400 });
@@ -20,7 +22,7 @@ export async function POST(req: Request) {
       status = 'EXPIRING SOON - RENEWAL NOTICE SENT';
     }
 
-    return NextResponse.json({
+    const responseData = {
       success: true,
       complianceAudit: {
         vendorName: vendorName || 'Unknown Vendor',
@@ -34,7 +36,20 @@ export async function POST(req: Request) {
           : 'Policy is active and compliant.'
       },
       timestamp: new Date().toISOString()
-    });
+    };
+
+    // Persist log to Supabase PostgreSQL if configured
+    if (supabase) {
+      await supabase.from('api_logs').insert([
+        {
+          endpoint: '/api/compliance-vault',
+          payload: body,
+          response: responseData
+        }
+      ]);
+    }
+
+    return NextResponse.json(responseData);
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message || 'Compliance check failed' }, { status: 500 });
   }
