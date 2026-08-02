@@ -3,8 +3,8 @@
 import { useState } from "react";
 
 const ENDPOINTS = [
+  { name: "Dwell8 Underwrite", path: "/api/dwell8-underwrite", defaultPayload: '{\n  "purchasePrice": 450000,\n  "renoCost": 75000,\n  "afterRepairValue": 650000,\n  "monthlyRent": 4200,\n  "propertyTaxesMonthly": 450,\n  "insuranceMonthly": 150,\n  "propertyManagementMonthly": 210\n}' },
   { name: "ZoneCheck API", path: "/api/zone-check", defaultPayload: '{\n  "address": "725 S Spring St",\n  "zoningCode": "C2-4D",\n  "lotSizeSqFt": 10000\n}' },
-  { name: "Extract Specs API", path: "/api/extract-specs", defaultPayload: '{\n  "rawText": "Section 03 30 00 Cast-in-Place Concrete. Provide 4000 PSI concrete for spread footings, total 120 CY."\n}' },
   { name: "SpecExtract AI", path: "/api/spec-extract", defaultPayload: '{\n  "blueprintText": "Foundation details require 4000 PSI concrete slab and heavy wood framing studs."\n}' },
   { name: "PropLease Audit", path: "/api/prop-lease-audit", defaultPayload: '{\n  "leaseText": "Standard NNN lease agreement with CAM charges and landlord demolition clause.",\n  "baseRent": 6500,\n  "camCharges": 1200\n}' },
   { name: "Audit Lease API", path: "/api/audit-lease", defaultPayload: '{\n  "tenantName": "John Doe",\n  "monthlyIncome": 2500,\n  "contractRent": 1800,\n  "utilityAllowance": 75\n}' },
@@ -38,8 +38,8 @@ export default function Dashboard() {
   return (
     <main style={{ padding: "2rem", fontFamily: "system-ui, sans-serif", background: "#0f172a", color: "#e2e8f0", minHeight: "100vh" }}>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-        <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem", color: "#fff" }}>Aura8 Command Center</h1>
-        <p style={{ color: "#94a3b8", marginBottom: "2rem" }}>Live API Testing Dashboard &bull; 7 Active Endpoints</p>
+        <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem", color: "#fff" }}>Aura8 & Dwell8 Command Center</h1>
+        <p style={{ color: "#94a3b8", marginBottom: "2rem" }}>Live API Testing Dashboard &bull; 8 Active Endpoints</p>
         
         <div style={{ display: "flex", gap: "0.75rem", marginBottom: "2rem", flexWrap: "wrap" }}>
           {ENDPOINTS.map((ep) => (
