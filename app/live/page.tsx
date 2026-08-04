@@ -86,14 +86,21 @@ export default async function LiveCamPage() {
                       </div>
                     </div>
 
-                    <a 
-                      href={affiliateLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-6 block w-full bg-white text-black text-center font-medium py-2.5 rounded-lg hover:bg-zinc-200 transition duration-150"
-                    >
-                      Enter Room
-                    </a>
+                   <a 
+  href={affiliateLink}
+  target="_blank"
+  rel="noopener noreferrer"
+  onClick={async () => {
+    // Non-blocking background log to Supabase
+    fetch('/api/track-click', {
+      method: 'POST',
+      body: JSON.stringify({ model_id: model.model_id, tracking_code: trackingCode })
+    }).catch(() => {});
+  }}
+  className="mt-6 block w-full bg-white text-black text-center font-medium py-2.5 rounded-lg hover:bg-zinc-200 transition duration-150"
+>
+  Enter Room
+</a>
                   </div>
                 </div>
               );
